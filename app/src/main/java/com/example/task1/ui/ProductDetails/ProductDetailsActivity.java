@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -18,9 +21,13 @@ import com.example.task1.R;
 import com.example.task1.db.modules.home.Banner;
 import com.example.task1.db.modules.productDetails.Related;
 import com.example.task1.db.modules.productDetails.colors;
+import com.example.task1.ui.Cart.CartActivity;
+import com.example.task1.ui.favorite.FavoriteActivity;
 import com.example.task1.ui.home.SliderAdapter;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -34,6 +41,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView tv_bio, tv_name, tv_price, tv_rate;
     private String product_name;
     private RecyclerView rv_related, rv_colors;
+    private FloatingActionButton fab_favorite;
+    private MaterialCardView cardView;
     private int id;
 
     @Override
@@ -49,6 +58,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         colors();
         texts();
         Slider();
+        fab_favorite();
+        add_to_cart();
     }
 
     private void texts() {
@@ -136,7 +147,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
@@ -158,10 +169,26 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-        appBarLayout.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void fab_favorite() {
+        fab_favorite = findViewById(R.id.fab_favorite);
+        fab_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_countryFragment);
+                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void add_to_cart() {
+        cardView = findViewById(R.id.card_add_to_cart);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -172,5 +199,19 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_product_details, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_act_prod_details_share:
+                Toast.makeText(this, "share ", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_main_act_prod_details_cart:
+                Intent intent2 = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent2);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
