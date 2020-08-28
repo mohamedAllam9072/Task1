@@ -310,7 +310,7 @@
         app:elevation="50dp"
         app:layout_anchor="@id/plant_detail_scrollview"
         app:layout_anchorGravity="top|end"
-        app:srcCompat="@drawable/ic_favorite_border" />
+        app:srcCompat="@drawable/selector_favorite" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

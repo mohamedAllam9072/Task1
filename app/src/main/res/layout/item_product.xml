@@ -68,7 +68,7 @@
             android:layout_marginHorizontal="8dp"
             android:background="@color/white"
             android:padding="8dp"
-            android:src="@drawable/ic_favorite_border"
+            android:src="@drawable/selector_favorite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
             android:layout_marginHorizontal="8dp"
             android:background="@color/white"
             android:padding="8dp"
-            android:src="@drawable/ic_shopping_cart"
+            android:src="@drawable/selector_cart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
