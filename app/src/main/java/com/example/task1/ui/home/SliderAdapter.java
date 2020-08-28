@@ -12,10 +12,11 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.mVH> {
     private Context context;
-    private ArrayList<Banner> hBanners;
+    private List<Banner> banners = new ArrayList<>();
 
     public SliderAdapter(Context context) {
         this.context = context;
@@ -32,11 +33,10 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.mVH> {
     public void onBindViewHolder(mVH holder, int position) {
         try {
             Picasso.with(context)
-                    .load(hBanners.get(position).getImage())
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_foreground)
+                    .load(banners.get(position).getImage())
+                    .placeholder(R.drawable.logo_ac)
+                    .error(R.drawable.logo_ac)
                     .fit()
-                    .centerCrop()
                     .into(holder.imageView);
         } catch (Exception ignored) {
         }
@@ -44,11 +44,11 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.mVH> {
 
     @Override
     public int getCount() {
-        return hBanners.size();
+        return banners.size();
     }
 
-    public void sethBanners(ArrayList<Banner> hBanners) {
-        this.hBanners = hBanners;
+    public void setBanners(List<Banner> banners) {
+        this.banners = banners;
         notifyDataSetChanged();
     }
 

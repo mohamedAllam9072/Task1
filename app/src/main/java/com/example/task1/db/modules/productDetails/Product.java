@@ -1,5 +1,6 @@
 package com.example.task1.db.modules.productDetails;
 
+import com.example.task1.db.modules.home.Banner;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class Product {
     @SerializedName("isOffer")
     private boolean isOffer;
     @SerializedName("images")
-    private List<images> images;
+    private List<Banner> images;
     @SerializedName("colors")
     private List<colors> colors;
 
@@ -58,11 +59,11 @@ public class Product {
         return isOffer;
     }
 
-    public List<com.example.task1.db.modules.productDetails.images> getImages() {
+    public List<Banner> getImages() {
         return images;
     }
 
-    public List<com.example.task1.db.modules.productDetails.colors> getColors() {
+    public List<colors> getColors() {
         return colors;
     }
 }

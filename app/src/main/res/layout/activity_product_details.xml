@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/colorPrimaryDark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/app_name"
             app:toolbarId="@+id/toolbar">
@@ -43,6 +43,7 @@
                 app:sliderStartAutoCycle="true" />
 
             <androidx.appcompat.widget.Toolbar
+                app:titleTextColor="@color/black"
                 android:id="@+id/detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -61,8 +62,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="?actionBarSize">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_title_p_details"
@@ -117,6 +117,7 @@
                         android:src="@drawable/ic_star_white" />
 
                     <TextView
+                        android:id="@+id/tv_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -156,6 +157,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_price_p_details" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginHorizontal="8dp"
                 android:id="@+id/rv_colors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -191,7 +193,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:padding="4dp"
                     android:text="@string/app_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -252,7 +254,7 @@
                 android:layout_margin="8dp"
                 android:lines="4"
                 android:text="@string/text8"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/v4" />
@@ -263,7 +265,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="@string/read_more"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_bio" />

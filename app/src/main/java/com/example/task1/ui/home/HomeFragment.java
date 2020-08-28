@@ -1,75 +1,55 @@
 package com.example.task1.ui.home;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
 import com.example.task1.db.modules.home.Banner;
-import com.example.task1.db.modules.productDetails.Product;
+import com.example.task1.db.modules.home.Category;
+import com.example.task1.db.modules.home.Offer;
+import com.example.task1.db.modules.home.h_Product;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel viewModel;
     private View root;
-    private RecyclerView rv_products;
+    private RecyclerView rv_products, rv_categories, rv_Offers;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         root = inflater.inflate(R.layout.fragment_home, container, false);
         viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        viewModel.getHome();
-        viewModel.statue.observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-            }
-        });
-        Button button = root.findViewById(R.id.btn_go);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_productDetailsActivity);
-            }
-        });
-
-        final ProductsAdapter productsAdapter = new ProductsAdapter(getContext());
-        rv_products = root.findViewById(R.id.rv_products);
-        rv_products.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        viewModel.products.observe(getViewLifecycleOwner(), new Observer<ArrayList<Product>>() {
-            @Override
-            public void onChanged(ArrayList<Product> products) {
-                productsAdapter.setList(products);
-            }
-        });
+        viewModel.getHomeData();
+        Slider();
+        Categories();
+        Offers();
+        Products();
 
         return root;
     }
 
-
-    private void setSlider(Context context, ArrayList<Banner> hBanners) {
-        SliderAdapter sliderAdapter = new SliderAdapter(context);
-        sliderAdapter.sethBanners(hBanners);
-
-
+    private void Slider() {
+        final SliderAdapter sliderAdapter = new SliderAdapter(getContext());
+        viewModel.banners.observe(getViewLifecycleOwner(), new Observer<List<Banner>>() {
+            @Override
+            public void onChanged(List<Banner> banners) {
+                sliderAdapter.setBanners(banners);
+            }
+        });
         SliderView sliderView = root.findViewById(R.id.imageSlider);
         sliderView.setSliderAdapter(sliderAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
@@ -81,5 +61,44 @@ public class HomeFragment extends Fragment {
         sliderView.setIndicatorUnselectedColor(Color.GRAY);
         sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
         sliderView.startAutoCycle();
+    }
+
+    private void Categories() {
+        rv_categories = root.findViewById(R.id.rv_categories);
+        rv_categories.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        final CategoryAdapter categoryAdapter = new CategoryAdapter(getContext());
+        viewModel.categories.observe(getViewLifecycleOwner(), new Observer<List<Category>>() {
+            @Override
+            public void onChanged(List<Category> categories) {
+                categoryAdapter.setList(categories);
+                rv_categories.setAdapter(categoryAdapter);
+            }
+        });
+    }
+
+    private void Products() {
+        rv_products = root.findViewById(R.id.rv_products);
+        rv_products.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        final ProductsAdapter productsAdapter = new ProductsAdapter(getContext());
+        viewModel.products.observe(getViewLifecycleOwner(), new Observer<List<h_Product>>() {
+            @Override
+            public void onChanged(List<h_Product> h_products) {
+                productsAdapter.setList(h_products);
+                rv_products.setAdapter(productsAdapter);
+            }
+        });
+    }
+
+    private void Offers() {
+        rv_Offers = root.findViewById(R.id.rv_offers);
+        rv_Offers.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        final OffersAdapter offersAdapter = new OffersAdapter(getContext());
+        viewModel.offers.observe(getViewLifecycleOwner(), new Observer<List<Offer>>() {
+            @Override
+            public void onChanged(List<Offer> offers) {
+                offersAdapter.setList(offers);
+                rv_Offers.setAdapter(offersAdapter);
+            }
+        });
     }
 }

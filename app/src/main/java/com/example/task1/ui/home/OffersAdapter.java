@@ -13,18 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
-import com.example.task1.db.modules.home.h_Product;
+import com.example.task1.db.modules.home.Offer;
 import com.example.task1.ui.ProductDetails.ProductDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.mVH> {
-    private List<h_Product> products = new ArrayList<>();
+public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.mVH> {
+    private List<Offer> offers = new ArrayList<>();
     private Context context;
 
-    public ProductsAdapter(Context context) {
+    public OffersAdapter(Context context) {
         this.context = context;
     }
 
@@ -41,7 +41,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.mVH> {
     public void onBindViewHolder(@NonNull mVH holder, int position) {
         try {
             Picasso.with(context)
-                    .load(products.get(position).getImage())
+                    .load(offers.get(position).getImage())
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_foreground)
                     .fit()
@@ -49,17 +49,17 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.mVH> {
                     .into(holder.imageView);
         } catch (Exception ignored) {
         }
-        holder.tv_name.setText(products.get(position).getName());
-        holder.tv_price.setText(products.get(position).getPrice());
+        holder.tv_name.setText(offers.get(position).getName());
+        holder.tv_price.setText(offers.get(position).getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return offers.size();
     }
 
-    public void setList(List<h_Product> products) {
-        this.products = products;
+    public void setList(List<Offer> offers) {
+        this.offers = offers;
         notifyDataSetChanged();
     }
 
@@ -79,7 +79,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.mVH> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ProductDetailsActivity.class);
-                    intent.putExtra("id", products.get(getAdapterPosition()).getId());
+                    intent.putExtra("id", offers.get(getAdapterPosition()).getId());
                     context.startActivity(intent);
                 }
             });

@@ -1,26 +1,25 @@
-package com.example.task1.ui.home;
+package com.example.task1.ui.ProductDetails;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
-import com.example.task1.db.modules.home.Category;
+import com.example.task1.db.modules.productDetails.colors;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.mVH> {
-    private List<Category> categories = new ArrayList<>();
+public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.mVH> {
+    private List<colors> colors = new ArrayList<>();
     private Context context;
 
-    public CategoryAdapter(Context context) {
+    public ColorsAdapter(Context context) {
         this.context = context;
     }
 
@@ -28,23 +27,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.mVH> {
     @Override
     public mVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_category, parent, false);
+                .inflate(R.layout.item_color, parent, false);
         return new mVH(view);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull mVH holder, int position) {
-        holder.tv_name.setText(categories.get(position).getName());
+        holder.tv_name.setText(colors.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return colors.size();
     }
 
-    public void setList(List<Category> categories) {
-        this.categories = categories;
+    public void setList(List<colors> colors) {
+        this.colors = colors;
         notifyDataSetChanged();
     }
 
@@ -53,13 +52,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.mVH> {
 
         public mVH(@NonNull View itemView) {
             super(itemView);
-            tv_name = itemView.findViewById(R.id.tv_category);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context, categories.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
-                }
-            });
+
+            tv_name = itemView.findViewById(R.id.tv_color_name);
+
         }
     }
 }

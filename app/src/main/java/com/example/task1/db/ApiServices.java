@@ -1,23 +1,19 @@
 package com.example.task1.db;
 
-import com.example.task1.db.modules.home.Home;
+import com.example.task1.db.modules.home.Root;
+import com.example.task1.db.modules.productDetails.RootProductDetails;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 
 public interface ApiServices {
     @GET("home")
-    Call<Home> getHome();
+    Call<Root> getHome();
 
-//    //https://newsapi.org/v2/
-//    @GET("top-headlines?country=us/status&apiKey=331303f4d4a7435fa9ee432a8ab905ed")
-//    Call<String> getStatus();
-//
-//    @GET("sources?apiKey=331303f4d4a7435fa9ee432a8ab905ed")
-//    Call<Sources> getSources();
-//
-//    @GET("top-headlines")
-//    Call<Headline> getHeadLineWithSource(@Query("sources") String source, @Query("apiKey") String apiKey);
-//    //bbc-news
+    @GET("product/{id}")
+    Call<RootProductDetails> getProductDetails(@Path("id") int product_id);
+
+
 }

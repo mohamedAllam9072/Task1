@@ -10,9 +10,6 @@
         android:name="com.example.task1.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_nav_home_to_productDetailsActivity"
-            app:destination="@id/productDetailsActivity" />
     </fragment>
 
     <activity

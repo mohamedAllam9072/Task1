@@ -1,4 +1,4 @@
-package com.example.task1.ui.home;
+package com.example.task1.ui.ProductDetails;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,18 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
-import com.example.task1.db.modules.home.h_Product;
-import com.example.task1.ui.ProductDetails.ProductDetailsActivity;
+import com.example.task1.db.modules.productDetails.Related;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.mVH> {
-    private List<h_Product> products = new ArrayList<>();
+public class RelatedAdapter extends RecyclerView.Adapter<RelatedAdapter.mVH> {
+    private List<Related> relateds = new ArrayList<>();
     private Context context;
 
-    public ProductsAdapter(Context context) {
+    public RelatedAdapter(Context context) {
         this.context = context;
     }
 
@@ -41,7 +40,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.mVH> {
     public void onBindViewHolder(@NonNull mVH holder, int position) {
         try {
             Picasso.with(context)
-                    .load(products.get(position).getImage())
+                    .load(relateds.get(position).getImage())
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_foreground)
                     .fit()
@@ -49,17 +48,17 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.mVH> {
                     .into(holder.imageView);
         } catch (Exception ignored) {
         }
-        holder.tv_name.setText(products.get(position).getName());
-        holder.tv_price.setText(products.get(position).getPrice());
+        holder.tv_name.setText(relateds.get(position).getName());
+        holder.tv_price.setText(relateds.get(position).getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return relateds.size();
     }
 
-    public void setList(List<h_Product> products) {
-        this.products = products;
+    public void setList(List<Related> relateds) {
+        this.relateds = relateds;
         notifyDataSetChanged();
     }
 
@@ -79,7 +78,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.mVH> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ProductDetailsActivity.class);
-                    intent.putExtra("id", products.get(getAdapterPosition()).getId());
+                    intent.putExtra("id", relateds.get(getAdapterPosition()).getId());
                     context.startActivity(intent);
                 }
             });

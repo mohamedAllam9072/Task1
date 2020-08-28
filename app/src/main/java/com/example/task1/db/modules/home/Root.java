@@ -2,7 +2,7 @@ package com.example.task1.db.modules.home;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Home {
+public class Root {
     @SerializedName("status")
     private Boolean status;
     @SerializedName("message")
