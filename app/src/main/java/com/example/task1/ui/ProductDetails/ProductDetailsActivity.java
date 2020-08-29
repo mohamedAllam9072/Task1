@@ -45,6 +45,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private FloatingActionButton fab_favorite;
     private MaterialCardView cardView;
     private int id;
+    private RelatedAdapter relatedAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Slider();
         fab_favorite();
         add_to_cart();
+        addToFavorite();
+
     }
 
     private void texts() {
@@ -100,7 +103,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private void Related() {
         rv_related = findViewById(R.id.rv_related);
         rv_related.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        final RelatedAdapter relatedAdapter = new RelatedAdapter(this);
+        relatedAdapter = new RelatedAdapter(this);
         viewModel.related.observe(this, new Observer<List<Related>>() {
             @Override
             public void onChanged(List<Related> relateds) {
@@ -182,6 +185,19 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "add to Favorites", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
+        });
+    }
+
+    private void addToFavorite() {
+        relatedAdapter.setOnFavoriteButtonClicked(new RelatedAdapter.onFavoriteClicked() {
+            @Override
+            public void m_onClick(Related related) {
+                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                viewModel.insert(new Favorite(related.getId(), related.getName(), related.getImage(), related.getPrice()));
+                Toast.makeText(getApplicationContext(), "add to Favorites", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+            }
+
         });
     }
 

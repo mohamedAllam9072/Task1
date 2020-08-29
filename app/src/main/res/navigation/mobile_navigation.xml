@@ -10,12 +10,11 @@
         android:name="com.example.task1.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home">
     </fragment>
-
     <activity
-        android:id="@+id/productDetailsActivity"
-        android:name="com.example.task1.ui.ProductDetails.ProductDetailsActivity"
-        android:label="activity_product_details"
-        tools:layout="@layout/activity_product_details" />
+        android:id="@+id/favoriteActivity"
+        android:name="com.example.task1.ui.favorite.FavoriteActivity"
+        android:label="activity_favorite"
+        tools:layout="@layout/activity_favorite" />
 
 
 </navigation>

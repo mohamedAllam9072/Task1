@@ -22,6 +22,7 @@ import java.util.List;
 public class RelatedAdapter extends RecyclerView.Adapter<RelatedAdapter.mVH> {
     private List<Related> relateds = new ArrayList<>();
     private Context context;
+    private onFavoriteClicked listener;
 
     public RelatedAdapter(Context context) {
         this.context = context;
@@ -62,6 +63,14 @@ public class RelatedAdapter extends RecyclerView.Adapter<RelatedAdapter.mVH> {
         notifyDataSetChanged();
     }
 
+    public void setOnFavoriteButtonClicked(onFavoriteClicked listener) {
+        this.listener = listener;
+    }
+
+    public interface onFavoriteClicked {
+        void m_onClick(Related related);
+    }
+
     public class mVH extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView tv_name, tv_price;
@@ -73,6 +82,15 @@ public class RelatedAdapter extends RecyclerView.Adapter<RelatedAdapter.mVH> {
             tv_name = itemView.findViewById(R.id.tv_title_product);
             tv_price = itemView.findViewById(R.id.tv_price_product);
             ib_favorite = itemView.findViewById(R.id.ib_favorite_product);
+            ib_favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.m_onClick(relateds.get(position));
+                    }
+                }
+            });
             ib_cart = itemView.findViewById(R.id.ib_cart_product);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
