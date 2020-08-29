@@ -28,7 +28,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.Cart.CartActivity" />
-        <activity android:name=".ui.search.SearchActivity" />
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:label="Search" />
         <activity
             android:name=".ui.ProductDetails.ProductDetailsActivity"
             android:parentActivityName=".MainActivity"

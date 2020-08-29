@@ -58,4 +58,7 @@ public class HomeViewModel extends AndroidViewModel {
         });
     }
 
+    public MutableLiveData<List<h_Product>> getProducts() {
+        return products;
+    }
 }
