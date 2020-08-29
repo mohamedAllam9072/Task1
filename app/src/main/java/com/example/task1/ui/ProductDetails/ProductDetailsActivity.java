@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
+import com.example.task1.db.modules.Favorite;
 import com.example.task1.db.modules.home.Banner;
 import com.example.task1.db.modules.productDetails.Related;
 import com.example.task1.db.modules.productDetails.colors;
@@ -177,6 +178,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                viewModel.insert(new Favorite(id, viewModel.name.getValue(), viewModel.image.getValue(), viewModel.price.getValue()));
+                Toast.makeText(getApplicationContext(), "add to Favorites", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });

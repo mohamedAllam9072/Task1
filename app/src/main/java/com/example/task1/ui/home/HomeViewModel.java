@@ -1,11 +1,14 @@
 package com.example.task1.ui.home;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.task1.db.ApiClient;
+import com.example.task1.db.Room.Repo;
+import com.example.task1.db.modules.Favorite;
 import com.example.task1.db.modules.home.Banner;
 import com.example.task1.db.modules.home.Category;
 import com.example.task1.db.modules.home.Offer;
@@ -18,14 +21,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel extends AndroidViewModel {
+    private Repo repo;
     private static final String TAG = "HomeViewModel";
     MutableLiveData<List<Category>> categories = new MutableLiveData<>();
     MutableLiveData<List<Banner>> banners = new MutableLiveData<>();
     MutableLiveData<List<h_Product>> products = new MutableLiveData<>();
     MutableLiveData<List<Offer>> offers = new MutableLiveData<>();
 
-    public HomeViewModel() {
+    public HomeViewModel(Application application) {
+        super(application);
+        repo = new Repo(application);
+    }
+
+    public void insert(Favorite favorite) {
+        repo.insert(favorite);
     }
 
     public void getHomeData() {

@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
+        //getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
         //Code to start timer and take action after the timer ends
         //This is 3 seconds
         int SPLASH_TIME = 1200;

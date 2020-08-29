@@ -1,7 +1,6 @@
 package com.example.task1.db.modules.home;
 
 import com.google.gson.annotations.SerializedName;
-
 public class h_Product {
     @SerializedName("id")
     private int id;

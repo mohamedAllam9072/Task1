@@ -1,10 +1,12 @@
 package com.example.task1.ui.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,10 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
+import com.example.task1.db.modules.Favorite;
 import com.example.task1.db.modules.home.Banner;
 import com.example.task1.db.modules.home.Category;
 import com.example.task1.db.modules.home.Offer;
 import com.example.task1.db.modules.home.h_Product;
+import com.example.task1.ui.favorite.FavoriteActivity;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -29,6 +33,8 @@ public class HomeFragment extends Fragment {
     private HomeViewModel viewModel;
     private View root;
     private RecyclerView rv_products, rv_categories, rv_Offers;
+    private ProductsAdapter productsAdapter;
+    private OffersAdapter offersAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -38,8 +44,31 @@ public class HomeFragment extends Fragment {
         Categories();
         Offers();
         Products();
+        AddToFavorite();
 
         return root;
+    }
+
+    private void AddToFavorite() {
+        productsAdapter.setOnFavoriteButtonClicked(new ProductsAdapter.onFavoriteClicked() {
+            @Override
+            public void m_onClick(h_Product h_product) {
+                Intent intent = new Intent(getContext(), FavoriteActivity.class);
+                viewModel.insert(new Favorite(h_product.getId(), h_product.getName(), h_product.getImage(), h_product.getPrice()));
+                Toast.makeText(getContext(), "add to Favorites", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+            }
+        });
+        offersAdapter.setOnFavoriteButtonClicked(new OffersAdapter.onFavoriteClicked() {
+            @Override
+            public void m_onClick(Offer offer) {
+                Intent intent = new Intent(getContext(), FavoriteActivity.class);
+                viewModel.insert(new Favorite(offer.getId(), offer.getName(), offer.getImage(), offer.getPrice()));
+                Toast.makeText(getContext(), "add to Favorites", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void Slider() {
@@ -79,7 +108,7 @@ public class HomeFragment extends Fragment {
     private void Products() {
         rv_products = root.findViewById(R.id.rv_products);
         rv_products.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        final ProductsAdapter productsAdapter = new ProductsAdapter(getContext());
+        productsAdapter = new ProductsAdapter(getContext());
         viewModel.products.observe(getViewLifecycleOwner(), new Observer<List<h_Product>>() {
             @Override
             public void onChanged(List<h_Product> h_products) {
@@ -92,7 +121,7 @@ public class HomeFragment extends Fragment {
     private void Offers() {
         rv_Offers = root.findViewById(R.id.rv_offers);
         rv_Offers.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        final OffersAdapter offersAdapter = new OffersAdapter(getContext());
+        offersAdapter = new OffersAdapter(getContext());
         viewModel.offers.observe(getViewLifecycleOwner(), new Observer<List<Offer>>() {
             @Override
             public void onChanged(List<Offer> offers) {

@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.favorite.FavoriteActivity">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="favorite"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        tools:listitem="@layout/item_product" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
