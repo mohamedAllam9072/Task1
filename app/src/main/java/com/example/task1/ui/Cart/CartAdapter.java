@@ -1,7 +1,6 @@
-package com.example.task1.ui.home;
+package com.example.task1.ui.Cart;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
-import com.example.task1.db.modules.home.Offer;
-import com.example.task1.ui.ProductDetails.ProductDetailsActivity;
+import com.example.task1.db.modules.Cart.Cart_product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.mVH> {
-    private List<Offer> offers = new ArrayList<>();
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.mVH> {
+    private List<Cart_product> cart_products = new ArrayList<>();
     private Context context;
-    private onFavoriteClicked listener;
-    private onCartClicked listener2;
+    private onCartClicked listener;
 
-    public OffersAdapter(Context context) {
+
+    public CartAdapter(Context context) {
         this.context = context;
     }
 
@@ -43,7 +41,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.mVH> {
     public void onBindViewHolder(@NonNull mVH holder, int position) {
         try {
             Picasso.with(context)
-                    .load(offers.get(position).getImage())
+                    .load(cart_products.get(position).getImage())
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_foreground)
                     .fit()
@@ -51,34 +49,30 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.mVH> {
                     .into(holder.imageView);
         } catch (Exception ignored) {
         }
-        holder.tv_name.setText(offers.get(position).getName());
-        holder.tv_price.setText(offers.get(position).getPrice());
+        holder.tv_name.setText(cart_products.get(position).getName());
+        holder.tv_price.setText(cart_products.get(position).getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return offers.size();
+        return cart_products.size();
     }
 
-    public void setList(List<Offer> offers) {
-        this.offers = offers;
+    public void setList(List<Cart_product> cart_products) {
+        this.cart_products = cart_products;
         notifyDataSetChanged();
     }
 
-    public void setOnFavoriteButtonClicked(onFavoriteClicked listener) {
+    public Cart_product getCartProductAt(int position) {
+        return cart_products.get(position);
+    }
+
+    public void setOnCartButtonClicked(onCartClicked listener) {
         this.listener = listener;
     }
 
-    public interface onFavoriteClicked {
-        void m_onClick(Offer offer);
-    }
-
-    public void setOnCartButtonClicked(onCartClicked listener2) {
-        this.listener2 = listener2;
-    }
-
     public interface onCartClicked {
-        void m_onClick(Offer offer);
+        void m_onClick(Cart_product cart_product);
     }
 
     public class mVH extends RecyclerView.ViewHolder {
@@ -92,25 +86,19 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.mVH> {
             tv_name = itemView.findViewById(R.id.tv_title_product);
             tv_price = itemView.findViewById(R.id.tv_price_product);
             ib_favorite = itemView.findViewById(R.id.ib_favorite_product);
-            ib_favorite.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.m_onClick(offers.get(position));
-                    }
-                }
-            });
             ib_cart = itemView.findViewById(R.id.ib_cart_product);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ProductDetailsActivity.class);
-                    intent.putExtra("id", offers.get(getAdapterPosition()).getId());
-                    context.startActivity(intent);
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.m_onClick(cart_products.get(position));
+                    }
                 }
             });
 
         }
     }
+
+
 }

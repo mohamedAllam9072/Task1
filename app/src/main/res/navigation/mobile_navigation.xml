@@ -9,12 +9,15 @@
         android:id="@+id/nav_home"
         android:name="com.example.task1.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_blankFragment"
+            app:destination="@id/blankFragment" />
     </fragment>
-    <activity
-        android:id="@+id/favoriteActivity"
-        android:name="com.example.task1.ui.favorite.FavoriteActivity"
-        android:label="activity_favorite"
-        tools:layout="@layout/activity_favorite" />
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.task1.ui.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
 
 
 </navigation>

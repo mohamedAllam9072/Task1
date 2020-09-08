@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.task1.db.modules.Cart.Cart_product;
 import com.example.task1.db.modules.Favorite;
 
 import java.util.List;
@@ -12,7 +13,10 @@ import java.util.List;
 
 public class Repo {
     private Dao_favorite dao_favorite;
+    private Dao_cart dao_cart;
     private LiveData<List<Favorite>> allFavorites;
+    private LiveData<List<Cart_product>> allCartProducts;
+
 
     /**
      * =Application is subclass of Context
@@ -24,7 +28,9 @@ public class Repo {
     public Repo(Application application) {
         mDatabase mDatabase = com.example.task1.db.Room.mDatabase.getInstance(application);
         dao_favorite = mDatabase.dao_favorite();
+        dao_cart = mDatabase.dao_cart();
         allFavorites = dao_favorite.getAllFavorite();
+        allCartProducts = dao_cart.getAllCartProducts();
     }
 
     /**
@@ -99,5 +105,68 @@ public class Repo {
         }
     }
 
+    public void insertCart(Cart_product cart_product) {
+        new InsertCartAsyncTask(dao_cart).execute(cart_product);
+    }
 
+    public void deleteCart(Cart_product cart_product) {
+        new DeleteCartAsyncTask(dao_cart).execute(cart_product);
+    }
+
+    public void deleteAllCartProducts() {
+        new DeleteCartAllSourcesAsyncTask(dao_cart).execute();
+    }
+
+    public LiveData<List<Cart_product>> getAllCartProducts() {
+        return allCartProducts;
+    }
+
+    /**
+     * =make NoteDao Member we need it to make our Database operations
+     * =because of our inner class is static we can use NoteDao from class Repository
+     */
+    private static class InsertCartAsyncTask extends AsyncTask<Cart_product, Void, Void> {
+
+        private Dao_cart dao_cart;
+
+        private InsertCartAsyncTask(Dao_cart dao_cart) {
+            this.dao_cart = dao_cart;
+        }
+
+        @Override
+        protected Void doInBackground(Cart_product... cart_products) {
+            dao_cart.insert(cart_products[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteCartAsyncTask extends AsyncTask<Cart_product, Void, Void> {
+
+        private Dao_cart dao_cart;
+
+        private DeleteCartAsyncTask(Dao_cart dao_cart) {
+            this.dao_cart = dao_cart;
+        }
+
+        @Override
+        protected Void doInBackground(Cart_product... cart_products) {
+            dao_cart.delete(cart_products[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteCartAllSourcesAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private Dao_cart dao_cart;
+
+        private DeleteCartAllSourcesAsyncTask(Dao_cart dao_cart) {
+            this.dao_cart = dao_cart;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao_cart.getAllCartProducts();
+            return null;
+        }
+    }
 }

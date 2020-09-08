@@ -28,6 +28,7 @@ public class HomeViewModel extends AndroidViewModel {
     MutableLiveData<List<Banner>> banners = new MutableLiveData<>();
     MutableLiveData<List<h_Product>> products = new MutableLiveData<>();
     MutableLiveData<List<Offer>> offers = new MutableLiveData<>();
+    private MutableLiveData<Root> MainResponse = new MutableLiveData<>();
 
     public HomeViewModel(Application application) {
         super(application);
@@ -42,6 +43,7 @@ public class HomeViewModel extends AndroidViewModel {
         ApiClient.getINSTANCE().getHome().enqueue(new Callback<Root>() {
             @Override
             public void onResponse(Call<Root> call, Response<Root> response) {
+                // MainResponse.postValue(response.body());
                 banners.setValue(response.body().getData().getBanner());
                 categories.setValue(response.body().getData().getCategories());
                 products.setValue(response.body().getData().getProducts());
@@ -60,5 +62,9 @@ public class HomeViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<h_Product>> getProducts() {
         return products;
+    }
+
+    public void setMainResponse(MutableLiveData<Root> mainResponse) {
+        MainResponse = mainResponse;
     }
 }

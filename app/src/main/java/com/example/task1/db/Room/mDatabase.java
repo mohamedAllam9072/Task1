@@ -9,10 +9,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.task1.db.modules.Cart.Cart_product;
 import com.example.task1.db.modules.Favorite;
 
 
-@Database(entities = {Favorite.class}, version = 1, exportSchema = true)
+@Database(entities = {Favorite.class, Cart_product.class}, version = 2, exportSchema = true)
 public abstract class mDatabase extends RoomDatabase {
 
     /**
@@ -61,11 +62,17 @@ public abstract class mDatabase extends RoomDatabase {
      */
     public abstract Dao_favorite dao_favorite();
 
+    public abstract Dao_cart dao_cart();
+
+
     private static class PopulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
         private Dao_favorite dao_favorite;
+        private Dao_cart dao_cart;
+
 
         public PopulateDBAsyncTask(mDatabase db) {
             dao_favorite = db.dao_favorite();
+            dao_cart = db.dao_cart();
         }
 
         @Override
