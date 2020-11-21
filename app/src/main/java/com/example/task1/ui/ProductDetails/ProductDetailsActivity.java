@@ -24,7 +24,7 @@ import com.example.task1.db.modules.productDetails.Related;
 import com.example.task1.db.modules.productDetails.colors;
 import com.example.task1.ui.Cart.CartActivity;
 import com.example.task1.ui.favorite.FavoriteActivity;
-import com.example.task1.ui.home.SliderAdapter;
+import com.example.task1.adapters.SliderAdapter;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.card.MaterialCardView;

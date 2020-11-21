@@ -1,4 +1,4 @@
-package com.example.task1.ui.home;
+package com.example.task1.adapters;
 
 import android.content.Context;
 import android.content.Intent;

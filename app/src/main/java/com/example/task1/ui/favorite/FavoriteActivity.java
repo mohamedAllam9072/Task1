@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
+import com.example.task1.adapters.FavoriteAdapter;
 import com.example.task1.db.modules.Favorite;
 
 import java.util.List;

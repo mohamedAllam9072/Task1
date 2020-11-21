@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
+import com.example.task1.adapters.CartAdapter;
 import com.example.task1.databinding.ActivityCartBinding;
 import com.example.task1.db.modules.Cart.Cart_product;
 

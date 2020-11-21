@@ -1,17 +1,15 @@
-package com.example.task1.ui.Cart;
+package com.example.task1.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
+import com.example.task1.databinding.ItemProductBinding;
 import com.example.task1.db.modules.Cart.Cart_product;
 import com.squareup.picasso.Picasso;
 
@@ -31,10 +29,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.mVH> {
     @NonNull
     @Override
     public mVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_product, parent, false);
-        return new mVH(view);
-
+        ItemProductBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext())
+                , R.layout.item_product, parent, false);
+        return new mVH(binding);
     }
 
     @Override
@@ -46,11 +43,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.mVH> {
                     .error(R.drawable.ic_launcher_foreground)
                     .fit()
                     .centerCrop()
-                    .into(holder.imageView);
+                    .into(holder.binding.ivMainProduct);
         } catch (Exception ignored) {
         }
-        holder.tv_name.setText(cart_products.get(position).getName());
-        holder.tv_price.setText(cart_products.get(position).getPrice());
+        holder.binding.tvTitleProduct.setText(cart_products.get(position).getName());
+        holder.binding.tvPriceProduct.setText(cart_products.get(position).getPrice());
     }
 
     @Override
@@ -76,28 +73,35 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.mVH> {
     }
 
     public class mVH extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView tv_name, tv_price;
-        ImageButton ib_favorite, ib_cart;
+        ItemProductBinding binding;
 
-        public mVH(@NonNull View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.iv_main_product);
-            tv_name = itemView.findViewById(R.id.tv_title_product);
-            tv_price = itemView.findViewById(R.id.tv_price_product);
-            ib_favorite = itemView.findViewById(R.id.ib_favorite_product);
-            ib_cart = itemView.findViewById(R.id.ib_cart_product);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.m_onClick(cart_products.get(position));
-                    }
-                }
-            });
-
+        public mVH(ItemProductBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
+
+//        ImageView imageView;
+//        TextView tv_name, tv_price;
+//        ImageButton ib_favorite, ib_cart;
+//
+//        public mVH(@NonNull View itemView) {
+//            super(itemView);
+//            imageView = itemView.findViewById(R.id.iv_main_product);
+//            tv_name = itemView.findViewById(R.id.tv_title_product);
+//            tv_price = itemView.findViewById(R.id.tv_price_product);
+//            ib_favorite = itemView.findViewById(R.id.ib_favorite_product);
+//            ib_cart = itemView.findViewById(R.id.ib_cart_product);
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int position = getAdapterPosition();
+//                    if (listener != null && position != RecyclerView.NO_POSITION) {
+//                        listener.m_onClick(cart_products.get(position));
+//                    }
+//                }
+//            });
+//
+//        }
     }
 
 

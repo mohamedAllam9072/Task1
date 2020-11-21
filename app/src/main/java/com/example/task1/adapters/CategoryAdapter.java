@@ -1,4 +1,4 @@
-package com.example.task1.ui.home;
+package com.example.task1.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,9 +8,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
+import com.example.task1.databinding.ItemCategoryBinding;
 import com.example.task1.db.modules.home.Category;
 
 import java.util.ArrayList;
@@ -27,15 +29,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.mVH> {
     @NonNull
     @Override
     public mVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_category, parent, false);
-        return new mVH(view);
+        ItemCategoryBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()),R.layout.item_category,parent,false);
+        return new mVH(binding);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull mVH holder, int position) {
-        holder.tv_name.setText(categories.get(position).getName());
+        holder.binding.tvCategory.setText(categories.get(position).getName());
     }
 
     @Override
@@ -49,17 +51,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.mVH> {
     }
 
     public class mVH extends RecyclerView.ViewHolder {
-        TextView tv_name;
+        ItemCategoryBinding binding;
 
-        public mVH(@NonNull View itemView) {
-            super(itemView);
-            tv_name = itemView.findViewById(R.id.tv_category);
-            itemView.setOnClickListener(new View.OnClickListener() {
+        public mVH(@NonNull ItemCategoryBinding binding) {
+            super(binding.getRoot());
+            this.binding =binding;
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, categories.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
+
     }
 }

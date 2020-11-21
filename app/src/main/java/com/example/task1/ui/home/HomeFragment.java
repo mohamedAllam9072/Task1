@@ -18,6 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
+import com.example.task1.adapters.CategoryAdapter;
+import com.example.task1.adapters.OffersAdapter;
+import com.example.task1.adapters.ProductsAdapter;
+import com.example.task1.adapters.SliderAdapter;
 import com.example.task1.databinding.FragmentHomeBinding;
 import com.example.task1.db.modules.Favorite;
 import com.example.task1.db.modules.home.Banner;
@@ -131,7 +135,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void Categories() {
-        binding.rvCategories.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+
 
         final CategoryAdapter categoryAdapter = new CategoryAdapter(getContext());
         viewModel.categories.observe(getViewLifecycleOwner(), new Observer<List<Category>>() {

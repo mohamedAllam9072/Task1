@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task1.R;
+import com.example.task1.adapters.SearchAdapter;
 import com.example.task1.db.modules.home.h_Product;
 import com.example.task1.ui.home.HomeViewModel;
 

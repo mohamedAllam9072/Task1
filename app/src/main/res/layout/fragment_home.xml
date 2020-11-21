@@ -57,11 +57,15 @@
                 app:layout_constraintTop_toBottomOf="@id/imageSlider" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:scrollbars="horizontal"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:id="@+id/rv_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_more_categories"
                 tools:itemCount="1"

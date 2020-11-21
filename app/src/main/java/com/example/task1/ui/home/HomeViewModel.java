@@ -64,6 +64,10 @@ public class HomeViewModel extends AndroidViewModel {
         return products;
     }
 
+    public MutableLiveData<List<Category>> getCategories() {
+        return categories;
+    }
+
     public void setMainResponse(MutableLiveData<Root> mainResponse) {
         MainResponse = mainResponse;
     }
